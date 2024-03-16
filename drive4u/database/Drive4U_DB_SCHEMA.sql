@@ -11,7 +11,7 @@ CREATE TABLE IF NOT EXISTS Cars (
   CarName VARCHAR(45) NULL DEFAULT NULL,
   RegDate DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (`CarId`)
-)
+);
 
 
 -- -----------------------------------------------------
@@ -23,10 +23,11 @@ CREATE TABLE IF NOT EXISTS Sensordata (
   ax FLOAT NULL DEFAULT NULL,
   ay FLOAT NULL DEFAULT NULL,
   az FLOAT NULL DEFAULT NULL,
-  temp FLOAT NULL DEFAULT NULL,
-  humi FLOAT NULL DEFAULT NULL,
+  gx FLOAT NULL DEFAULT NULL,
+  gy FLOAT NULL DEFAULT NULL,
+  gz FLOAT NULL DEFAULT NULL,
   PRIMARY KEY (SensorId)
-)
+);
 
 
 -- -----------------------------------------------------
@@ -39,16 +40,16 @@ CREATE TABLE IF NOT EXISTS Carsensordatalinks (
   PRIMARY KEY (Id),
   FOREIGN KEY (CarId) REFERENCES Cars (CarId),
   FOREIGN KEY (SensorId) REFERENCES Sensordata (SensorId)
-)
+);
 
 -- -----------------------------------------------------
 -- Table `drive4u`.`videodata`
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS Videodata (
   VideoID INT NOT NULL AUTO_INCREMENT,
-  VideoURL VARCHAR(45) NULL DEFAULT NULL,
+  VideoURL VARCHAR(100) NULL DEFAULT NULL,
   PRIMARY KEY (VideoID)
-)
+);
 
 -- -----------------------------------------------------
 -- Table `drive4u`.`carvideodatalinks`
@@ -62,7 +63,7 @@ CREATE TABLE IF NOT EXISTS Carvideodatalinks (
   INDEX VideoId (VideoId ASC) VISIBLE,
   FOREIGN KEY (CarId) REFERENCES Cars (CarId),
   FOREIGN KEY (VideoId) REFERENCES Videodata (VideoID)
-)
+);
 
 -- -----------------------------------------------------
 -- Table `drive4u`.`users`
@@ -75,7 +76,7 @@ CREATE TABLE IF NOT EXISTS Users (
   Email VARCHAR(45) NULL DEFAULT NULL,
   RegDate DATETIME NULL DEFAULT NULL,
   PRIMARY KEY (Id)
-)
+);
 
 
 -- -----------------------------------------------------
@@ -88,4 +89,4 @@ CREATE TABLE IF NOT EXISTS Usercarlinks (
   PRIMARY KEY (Id),
   FOREIGN KEY (UserId) REFERENCES Users (Id),
   FOREIGN KEY (CarId) REFERENCES Cars (CarId)
-)
+);
