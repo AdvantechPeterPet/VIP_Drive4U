@@ -3,36 +3,66 @@ import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
 import axios from 'axios';
 
 const SignUpScreen = ({ navigation }) => {
+  const [userId, setUserId] = useState("");
+  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = () => {
     const signUpData = {
-      Id: 5,
-      userId: "jogsoe",
-      password: "password123",
-      name: "Johsdfe",
-      email: "john.doe@example.com",
-      reg_date: "2024-03-17"
+      userId: userId,
+      password: password,
+      name: name,
+      email: email,
+      reg_date: new Date().toISOString().slice(0, 19).replace('T', ' ')
     };
-
+  
+    // 유효성 검사: 비밀번호와 확인 비밀번호가 일치하는지 확인
+    if (password !== confirmPassword) {
+      Alert.alert("Password Error", "Passwords do not match.");
+      return;
+    }
+  
+    // 서버에 회원가입 요청 보내기
     axios.post('https://zjjj2n9iql.execute-api.ap-northeast-2.amazonaws.com/Drive4U/SignUp', signUpData)
       .then(response => {
-        // 성공적으로 회원가입이 완료되었을 때 실행되는 코드
+        // 회원가입 성공 시
         console.log("회원가입 성공:", response.data);
-        // 회원가입 성공 시 필요한 로직 추가
+        Alert.alert("Sign Up Success", "회원가입이 완료되었습니다.");
+        navigation.navigate("Login");
       })
       .catch(error => {
-        // 회원가입 중 에러가 발생했을 때 실행되는 코드
+        // 회원가입 실패 시
         console.error("회원가입 실패:", error);
-        Alert.alert("회원가입 실패", "회원가입 중 에러가 발생했습니다.");
+        Alert.alert("Sign Up Failed", "회원가입 중 에러가 발생했습니다.");
       });
   };
+  
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Sign Up</Text>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>User ID</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Your User ID"
+          onChangeText={setUserId}
+          value={userId}
+          placeholderTextColor="#8c6b52"
+        />
+      </View>
+      <View style={styles.inputContainer}>
+        <Text style={styles.label}>Name</Text>
+        <TextInput
+          style={styles.input}
+          placeholder="Your Name"
+          onChangeText={setName}
+          value={name}
+          placeholderTextColor="#8c6b52"
+        />
+      </View>
       <View style={styles.inputContainer}>
         <Text style={styles.label}>Email</Text>
         <TextInput
@@ -77,7 +107,7 @@ const SignUpScreen = ({ navigation }) => {
           style={styles.link}
           onPress={() => navigation.navigate("Login")}
         >
-          Sign In
+          LogIn
         </Text>
       </Text>
     </View>

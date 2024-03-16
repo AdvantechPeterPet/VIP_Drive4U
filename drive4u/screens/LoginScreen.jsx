@@ -21,7 +21,7 @@ function LoginScreen({ navigation }) {
       if (response.ok) {
         // 로그인 성공 처리
         console.log("로그인 성공");
-        // navigation.navigate("Home"); // 홈 화면으로 이동
+        navigation.navigate("Main"); // 홈 화면으로 이동
       } else {
         // 로그인 실패 처리
         console.error("로그인 실패");
@@ -59,9 +59,6 @@ function LoginScreen({ navigation }) {
       </View>
 
       <Button title="Login" onPress={handleLogin} color="#fff" />
-
-      <Text style={styles.forgotPassword}>Forgot your password?</Text>
-
       <Button
         title="Create Account"
         onPress={() => navigation.navigate("SignUp")}
@@ -101,13 +98,6 @@ const styles = StyleSheet.create({
     paddingLeft: 10,
     color: "#ffffff",
     backgroundColor: "#333333"
-  },
-  forgotPassword: {
-    color: "#ff8800",
-    textDecorationLine: "underline",
-    marginTop: 20,
-    marginBottom: 20,
-    textAlign: "center"
   }
 });
 
