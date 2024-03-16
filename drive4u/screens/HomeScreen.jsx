@@ -6,12 +6,12 @@ function HomeScreen({ navigation }) {
     <View style={styles.container}>
       <Text style={styles.titleText}>Drive4U</Text>
       <Text style={styles.subTitleText}>
-        Save your life
+        Drive Safe, Stay Alive
       </Text>
       <Button
         title="Explore"
         onPress={() => navigation.navigate("Explore")}
-        color="#8c6b52"
+        color="#ff8800"
       />
     </View>
   );
@@ -20,22 +20,22 @@ function HomeScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: "#121212",
     alignItems: "center",
     justifyContent: "center",
     padding: 20
   },
   titleText: {
-    fontSize: 30,
+    fontSize: 40,
     fontWeight: "bold",
-    color: "#371c07",
-    marginBottom: 10
+    color: "#ff8800",
+    marginBottom: 20
   },
   subTitleText: {
-    fontSize: 16,
-    color: "#8c6b52",
+    fontSize: 18,
+    color: "#ffffff",
     textAlign: "center",
-    marginBottom: 20
+    marginBottom: 40
   }
 });
 

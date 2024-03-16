@@ -5,6 +5,7 @@ import { createStackNavigator } from "@react-navigation/stack";
 
 import HomeScreen from "./screens/HomeScreen";
 import LoginScreen from "./screens/LoginScreen";
+import SignUpScreen from "./screens/SignUpScreen"; // SignUpScreen 추가
 
 const Stack = createStackNavigator();
 
@@ -20,7 +21,7 @@ export default function App() {
               title: "Home",
               headerRight: () => (
                 <Button
-                  title="Login  "
+                  title="Login"
                   onPress={() => navigation.navigate("Login")}
                 />
               )
@@ -30,6 +31,11 @@ export default function App() {
             name="Login"
             component={LoginScreen}
             options={{ title: "Login" }}
+          />
+          <Stack.Screen
+            name="SignUp" 
+            component={SignUpScreen}
+            options={{ title: "Sign Up" }} 
           />
         </Stack.Navigator>
       </NavigationContainer>

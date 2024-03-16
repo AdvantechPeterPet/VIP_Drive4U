@@ -11,37 +11,39 @@ function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.titleText}>Log in to Drive4U</Text>
+      <Text style={styles.titleText}>Welcome to Drive4U</Text>
 
       <View style={styles.inputContainer}>
-        <Text>Email</Text>
+        <Text style={styles.label}>Email</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={setEmail}
           value={email}
           placeholder="Your Email"
+          placeholderTextColor="#8c6b52"
         />
       </View>
 
       <View style={styles.inputContainer}>
-        <Text>Password</Text>
+        <Text style={styles.label}>Password</Text>
         <TextInput
           style={styles.textInput}
           onChangeText={setPassword}
           value={password}
           placeholder="Your Password"
+          placeholderTextColor="#8c6b52"
           secureTextEntry={true}
         />
       </View>
 
-      <Button title="Login" onPress={handleLogin} color="#8c6b52" />
+      <Button title="Login" onPress={handleLogin} color="#fff" />
 
-      <Text style={styles.forgotPassword}>Did you forget your password?</Text>
+      <Text style={styles.forgotPassword}>Forgot your password?</Text>
 
       <Button
         title="Create Account"
-        onPress={() => navigation.navigate("Register")}
-        color="gray"
+        onPress={() => navigation.navigate("SignUp")}
+        color="#ff8800"
       />
     </View>
   );
@@ -50,32 +52,39 @@ function LoginScreen({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#f7f7f7",
+    backgroundColor: "#121212",
     justifyContent: "center",
     padding: 20
   },
   titleText: {
     fontSize: 30,
     fontWeight: "bold",
-    color: "#371c07",
-    marginBottom: 20
+    color: "#ff8800",
+    marginBottom: 20,
+    textAlign: "center"
   },
   inputContainer: {
-    marginBottom: 10
+    marginBottom: 20
+  },
+  label: {
+    fontSize: 16,
+    color: "#ff8800",
+    marginBottom: 5
   },
   textInput: {
     height: 40,
     borderWidth: 1,
-    borderColor: "gray",
+    borderColor: "#ff8800",
     borderRadius: 5,
     paddingLeft: 10,
-    backgroundColor: "#fff"
+    color: "#ffffff",
+    backgroundColor: "#333333"
   },
   forgotPassword: {
-    color: "gray",
+    color: "#ff8800",
     textDecorationLine: "underline",
     marginTop: 20,
-    marginBottom: 10,
+    marginBottom: 20,
     textAlign: "center"
   }
 });
