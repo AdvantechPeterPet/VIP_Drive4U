@@ -2,11 +2,33 @@ import React, { useState } from "react";
 import { StyleSheet, Text, View, Button, TextInput } from "react-native";
 
 function LoginScreen({ navigation }) {
-  const [email, setEmail] = useState("");
+  const [userId, setUserId] = useState("");
   const [password, setPassword] = useState("");
 
-  const handleLogin = () => {
-    console.log(`email: ${email}, password: ${password}`);
+  const handleLogin = async () => {
+    try {
+      const response = await fetch("https://zjjj2n9iql.execute-api.ap-northeast-2.amazonaws.com/Drive4U/Login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+          userId: userId,
+          password: password
+        })
+      });
+
+      if (response.ok) {
+        // 로그인 성공 처리
+        console.log("로그인 성공");
+        // navigation.navigate("Home"); // 홈 화면으로 이동
+      } else {
+        // 로그인 실패 처리
+        console.error("로그인 실패");
+      }
+    } catch (error) {
+      console.error("로그인 요청 중 오류:", error);
+    }
   };
 
   return (
@@ -14,12 +36,12 @@ function LoginScreen({ navigation }) {
       <Text style={styles.titleText}>Welcome to Drive4U</Text>
 
       <View style={styles.inputContainer}>
-        <Text style={styles.label}>Email</Text>
+        <Text style={styles.label}>User ID</Text>
         <TextInput
           style={styles.textInput}
-          onChangeText={setEmail}
-          value={email}
-          placeholder="Your Email"
+          onChangeText={setUserId}
+          value={userId}
+          placeholder="Your User ID"
           placeholderTextColor="#8c6b52"
         />
       </View>

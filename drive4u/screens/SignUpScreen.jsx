@@ -1,5 +1,6 @@
 import React, { useState } from "react";
-import { StyleSheet, Text, View, TextInput, Button } from "react-native";
+import { StyleSheet, Text, View, TextInput, Button, Alert } from "react-native";
+import axios from 'axios';
 
 const SignUpScreen = ({ navigation }) => {
   const [email, setEmail] = useState("");
@@ -7,8 +8,26 @@ const SignUpScreen = ({ navigation }) => {
   const [confirmPassword, setConfirmPassword] = useState("");
 
   const handleSignUp = () => {
-    // 여기에서 회원가입 로직을 처리할 수 있습니다.
-    console.log("Sign up with:", email, password);
+    const signUpData = {
+      Id: 5,
+      userId: "jogsoe",
+      password: "password123",
+      name: "Johsdfe",
+      email: "john.doe@example.com",
+      reg_date: "2024-03-17"
+    };
+
+    axios.post('https://zjjj2n9iql.execute-api.ap-northeast-2.amazonaws.com/Drive4U/SignUp', signUpData)
+      .then(response => {
+        // 성공적으로 회원가입이 완료되었을 때 실행되는 코드
+        console.log("회원가입 성공:", response.data);
+        // 회원가입 성공 시 필요한 로직 추가
+      })
+      .catch(error => {
+        // 회원가입 중 에러가 발생했을 때 실행되는 코드
+        console.error("회원가입 실패:", error);
+        Alert.alert("회원가입 실패", "회원가입 중 에러가 발생했습니다.");
+      });
   };
 
   return (
