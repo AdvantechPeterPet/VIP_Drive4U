@@ -1,36 +1,27 @@
 import React, { useState, useEffect } from "react";
 import { StyleSheet, Text, View, Button } from "react-native";
 import { Accelerometer, Gyroscope } from "expo-sensors";
+import axios from 'axios';
 
 const MainScreen = () => {
   const [acceleration, setAcceleration] = useState({ x: 0, y: 0, z: 0 });
   const [gyroscope, setGyroscope] = useState({ x: 0, y: 0, z: 0 });
   const [isDriving, setIsDriving] = useState(false);
-  const [isSensorEnabled, setIsSensorEnabled] = useState(false);
 
   useEffect(() => {
-    let accelerometerSubscription;
-    let gyroscopeSubscription;
+    let sensorInterval;
 
     const startSensors = async () => {
-      accelerometerSubscription = Accelerometer.addListener(({ x, y, z }) => {
-        setAcceleration({ x, y, z });
-      });
-      gyroscopeSubscription = Gyroscope.addListener(({ x, y, z }) => {
-        setGyroscope({ x, y, z });
-      });
-      setIsSensorEnabled(true);
+      sensorInterval = setInterval(sendSensorData, 10000); // 10 seconds
     };
 
     const stopSensors = () => {
-      accelerometerSubscription && accelerometerSubscription.remove();
-      gyroscopeSubscription && gyroscopeSubscription.remove();
-      setIsSensorEnabled(false);
+      clearInterval(sensorInterval);
     };
 
-    if (isDriving && !isSensorEnabled) {
+    if (isDriving) {
       startSensors();
-    } else if (!isDriving && isSensorEnabled) {
+    } else {
       stopSensors();
     }
 
@@ -41,10 +32,27 @@ const MainScreen = () => {
 
   const startDriving = () => {
     setIsDriving(true);
+    // 주행이 시작될 때 센서 데이터를 전송
+    sendSensorData();
   };
 
   const stopDriving = () => {
     setIsDriving(false);
+  };
+
+  const sendSensorData = async () => {
+    const url = "https://zjjj2n9iql.execute-api.ap-northeast-2.amazonaws.com/Drive4U/InsertData";
+    const data = {
+      acceleration,
+      gyroscope
+    };
+
+    try {
+      const response = await axios.post(url, data);
+      console.log("Sensor data sent successfully:", response.data);
+    } catch (error) {
+      console.error("Error sending sensor data:", error);
+    }
   };
 
   return (
